@@ -1,0 +1,37 @@
+<ion-menu side="start" menuId="mainMenu" contentId="mainContent" *ngIf="showMe">
+  <ion-header>
+    <ion-toolbar color="notitas">
+      <ion-title>Menú Principal</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-card>
+      <ion-card-header>
+        <img [src]="userData.avatar" />
+        <ion-card-title>{{ userData.firstName }} {{ userData.lastName }}</ion-card-title>
+        <ion-card-subtitle
+          ><ion-icon name="mail"></ion-icon> {{ userData.email }}</ion-card-subtitle
+        >
+      </ion-card-header>
+    </ion-card>
+    <ion-list>
+      <ion-menu-toggle>
+        <ion-item routerLink="/list"
+          ><ion-icon slot="start" name="list"></ion-icon> Listado</ion-item
+        >
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/create"
+          ><ion-icon slot="start" name="create"></ion-icon> Crear</ion-item
+        >
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item (click)="performLogout()"
+          ><ion-icon slot="start" name="log-out"></ion-icon> Cerrar Sesión</ion-item
+        >
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>

@@ -1,9 +1,45 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>create</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary" menu="mainMenu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Crear</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form class="user" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <ion-item lines="full">
+      <ion-label position="floating">Título</ion-label>
+      <ion-input type="text" ngModel name="title" required minlength="3"></ion-input>
+    </ion-item>
 
+    <ion-item lines="full">
+      <ion-label position="floating">Contenido</ion-label>
+      <ion-textarea
+        rows="6"
+        cols="20"
+        ngModel
+        name="content"
+        placeholder="Contenido..."
+      ></ion-textarea>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="onPickImage()" expand="block">
+          <ion-icon name="camera"></ion-icon>
+        </ion-button>
+        <ion-img [src]="photoWebviewPath"></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid"
+          >Guardar</ion-button
+        >
+        <ion-button color="light" expand="block" routerLink="/list">Cancelar</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

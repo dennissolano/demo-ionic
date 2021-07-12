@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ note.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <img [src]="note.image" />
+      <ion-card-subtitle>{{ note.createDate | date }}</ion-card-subtitle>
+      <ion-card-title>{{ note.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ note.content }}
+    </ion-card-content>
+  </ion-card>
+</ion-content>
