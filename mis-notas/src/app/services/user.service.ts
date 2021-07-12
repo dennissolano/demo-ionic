@@ -27,6 +27,16 @@ export class UserService {
     }
   }
 
+  performLoginAsync(user: string, password: string): Promise<UserData> {
+    const timeout = 100;
+    return new Promise((resolve) =>
+      setTimeout(() => {
+        const result = this.performLogin(user, password);
+        return resolve(result);
+      }, timeout)
+    );
+  }
+
   performLogout(): void {
     this.isLoggedIn = false;
     this.userStatusChange.emit(null);
