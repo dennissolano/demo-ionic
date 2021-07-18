@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalController} from '@ionic/angular';
+import {ModalController, NavController} from '@ionic/angular';
+import {NavigationOptions} from '@ionic/angular/providers/nav-controller';
 import {NoteService} from 'src/app/services/note.service';
 import {Note} from 'src/app/types/models';
 
@@ -12,7 +13,11 @@ export class ViewNoteComponent implements OnInit {
   @Input() noteId: number;
   note: Note;
 
-  constructor(private noteService: NoteService, private modalController: ModalController) {}
+  constructor(
+    private noteService: NoteService,
+    private modalController: ModalController,
+    private navController: NavController
+  ) {}
 
   ngOnInit() {
     console.log('onInit');
@@ -22,5 +27,16 @@ export class ViewNoteComponent implements OnInit {
 
   closeModal() {
     this.modalController.dismiss();
+  }
+
+  redirectToEditCard() {
+    this.closeModal();
+    const options: NavigationOptions = {
+      queryParams: {
+        note: JSON.stringify(this.note)
+      }
+    };
+
+    this.navController.navigateForward(['/edit'], options);
   }
 }
