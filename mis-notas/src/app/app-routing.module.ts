@@ -9,13 +9,13 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    loadChildren: () => import('./pages/list/list.module').then((m) => m.ListPageModule) /*,
-    canActivate: [AuthGuard]*/
+    loadChildren: () => import('./pages/list/list.module').then((m) => m.ListPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'create',
-    loadChildren: () => import('./pages/create/create.module').then((m) => m.CreatePageModule) /*,
-    canActivate: [AuthGuard]*/
+    loadChildren: () => import('./pages/create/create.module').then((m) => m.CreatePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -24,8 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'edit',
-    loadChildren: () => import('./pages/edit/edit.module').then((m) => m.EditPageModule) /*,
-    canActivate: [AuthGuard]*/
+    loadChildren: () => import('./pages/edit/edit.module').then((m) => m.EditPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 

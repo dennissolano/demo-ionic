@@ -42,7 +42,7 @@
         </ion-item-option>
       </ion-item-options>
 
-      <ion-item (click)="viewNote(note.id)">
+      <ion-item (click)="presentActionSheet(note.id)">
         <ion-avatar slot="start">
           <img [src]="note.image" />
         </ion-avatar>

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalController, NavController} from '@ionic/angular';
+import {ActionSheetController, ModalController, NavController} from '@ionic/angular';
+import {NavigationOptions} from '@ionic/angular/providers/nav-controller';
 import {MenuComponent} from 'src/app/components/menu/menu.component';
 import {ViewNoteComponent} from 'src/app/components/view-note/view-note.component';
 import {NoteService} from 'src/app/services/note.service';
@@ -18,7 +19,8 @@ export class ListPage implements OnInit {
     private noteService: NoteService,
     public modalController: ModalController,
     private navController: NavController,
-    private userService: UserService
+    private userService: UserService,
+    public actionSheetController: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -49,5 +51,52 @@ export class ListPage implements OnInit {
   redirectToLogOut() {
     this.userService.performLogout();
     this.navController.navigateBack('/login');
+  }
+
+  async presentActionSheet(noteId: number) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Acciones',
+      cssClass: 'my-custom-class',
+      buttons: [
+        {
+          text: 'Ver',
+          icon: 'eye-outline',
+          handler: () => {
+            this.viewNote(noteId);
+          }
+        },
+        {
+          text: 'Borrar',
+          icon: 'trash',
+          handler: () => {
+            this.delete(noteId);
+          }
+        },
+        {
+          text: 'Editar',
+          icon: 'create-outline',
+          handler: () => {
+            const options: NavigationOptions = {
+              queryParams: {
+                noteId
+              }
+            };
+            this.navController.navigateForward(['/edit'], options);
+          }
+        },
+        {
+          text: 'Cancelar',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    await actionSheet.present();
+
+    const {role} = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 }
