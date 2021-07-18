@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalController} from '@ionic/angular';
+import {ModalController, NavController} from '@ionic/angular';
+import {MenuComponent} from 'src/app/components/menu/menu.component';
 import {ViewNoteComponent} from 'src/app/components/view-note/view-note.component';
 import {NoteService} from 'src/app/services/note.service';
+import {UserService} from 'src/app/services/user.service';
 import {Note} from 'src/app/types/models';
 
 @Component({
@@ -12,7 +14,12 @@ import {Note} from 'src/app/types/models';
 export class ListPage implements OnInit {
   notes: Note[] = [];
 
-  constructor(private noteService: NoteService, public modalController: ModalController) {}
+  constructor(
+    private noteService: NoteService,
+    public modalController: ModalController,
+    private navController: NavController,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     // Sacamos las notas del servicio de notas
@@ -33,5 +40,14 @@ export class ListPage implements OnInit {
 
   delete(noteId: number) {
     this.notes = this.notes.filter((note) => note.id !== noteId);
+  }
+
+  redirectToCreate() {
+    this.navController.navigateForward('/create');
+  }
+
+  redirectToLogOut() {
+    this.userService.performLogout();
+    this.navController.navigateBack('/login');
   }
 }
