@@ -30,4 +30,8 @@ export class ListPage implements OnInit {
     });
     return await modal.present();
   }
+
+  delete(noteId: number) {
+    this.notes = this.notes.filter((note) => note.id !== noteId);
+  }
 }
