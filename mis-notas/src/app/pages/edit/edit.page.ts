@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavController} from '@ionic/angular';
+import {NavigationOptions} from '@ionic/angular/providers/nav-controller';
+import {NoteService} from 'src/app/services/note.service';
 import {Note} from 'src/app/types/models';
+import {ListPage} from '../list/list.page';
 
 @Component({
   selector: 'app-edit',
@@ -10,11 +13,15 @@ import {Note} from 'src/app/types/models';
 })
 export class EditPage implements OnInit {
   note: Note;
-  constructor(private route: ActivatedRoute, private navController: NavController) {}
+  constructor(
+    private route: ActivatedRoute,
+    private navController: NavController,
+    private noteService: NoteService
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      this.note = JSON.parse(params.note);
+      this.note = this.noteService.getNoteById(params.noteId);
     });
   }
 

@@ -33,7 +33,7 @@ export class ViewNoteComponent implements OnInit {
     this.closeModal();
     const options: NavigationOptions = {
       queryParams: {
-        note: JSON.stringify(this.note)
+        noteId: this.note.id
       }
     };
 
